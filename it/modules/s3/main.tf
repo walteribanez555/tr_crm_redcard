@@ -53,16 +53,16 @@ resource "aws_s3_bucket_acl" "example" {
 #   content_type = "text/html"
 # }
 
-# resource "aws_s3_bucket_website_configuration" "website" {
-#   bucket = aws_s3_bucket.mybucket.id
-#   index_document {
-#     suffix = "index.html"
-#   }
+resource "aws_s3_bucket_website_configuration" "website" {
+  bucket = aws_s3_bucket.mybucket.id
+  index_document {
+    suffix = "index.html"
+  }
 
-#   error_document {
-#     key = "error.html"
-#   }
+  error_document {
+    key = "index.html"
+  }
 
-#   depends_on = [aws_s3_bucket_acl.example]
+  depends_on = [aws_s3_bucket_acl.example]
 
-# }
+}

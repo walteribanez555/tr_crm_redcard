@@ -11,6 +11,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
 
   enabled             = true
   is_ipv6_enabled     = true
+  default_root_object = "index.html"
   comment             = "My CloudFront Distribution"
   default_cache_behavior {
     target_origin_id   = local.s3_origin_id
@@ -38,9 +39,17 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     }
   }
 
+  custom_error_response {
+    error_code = 403
+    response_code = 200
+    response_page_path = "/index.html"
+    error_caching_min_ttl = 60
+  }
+
    tags = {
     Name = "crm_redcard"
   }
   
 }
+
 
